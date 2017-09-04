@@ -1,1 +1,1 @@
-# spring-boot-angularjs
+# Spring Boot Angularjs
