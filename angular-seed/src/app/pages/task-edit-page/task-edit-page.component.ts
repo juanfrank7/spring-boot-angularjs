@@ -10,27 +10,30 @@ import { Todo } from '../../models/todo';
   styleUrls: ['./task-edit-page.component.css']
 })
 export class TaskEditPageComponent implements OnInit {
-	todoForm: FormGroup;  
-	constructor(public todoService: TodoService,
+  todoForm: FormGroup;
+  constructor(public todoService: TodoService,
     public formBuilder: FormBuilder,
     public router: Router) {
   }
 
   ngOnInit() {
-
-this.todoForm = this.formBuilder.group({
+      this.todoForm = this.formBuilder.group({
       description: '',
       completed: '',
       priority: ''
     });
   }
 
-onSubmit() {
-   this.todoService.create(
-     this.todoForm.get('description').value,
-     this.todoForm.get('priority').value,
-     Boolean(this.todoForm.get('completed').value)
-   );
+  onSubmit() {
+    this.todoService.create(
+      this.todoForm.get('description').value,
+      this.todoForm.get('priority').value,
+      Boolean(this.todoForm.get('completed').value)
+    ).subscribe(serverResponse => {
+        this.router.navigate(['/tasks']);
+    }, error => {
+      console.log(error);
+    });
 
    this.router.navigate(['/tasks']);
  }

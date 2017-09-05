@@ -8,13 +8,14 @@ import { Todo } from '../../models/todo';
   styleUrls: ['./task-list-page.component.css']
 })
 export class TaskListPageComponent implements OnInit {
-	private todos: Todo[] = [];
+  private todos: Todo[] = [];
   constructor(public todoService: TodoService) {
 
   }
 
   ngOnInit() {
-	this.todos = this.todoService.list();
+    this.todoService.list().subscribe(todosResponse => {
+      this.todos = todosResponse;
+    });
   }
-
 }

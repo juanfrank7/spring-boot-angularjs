@@ -1,22 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Todo } from '../models/todo';
+import { APIService } from '../common/api.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class TodoService {
-private todos: Todo[] = [
-      new Todo('todo 1'),
-      new Todo('todo 2', 1, true),
-      new Todo('todo 3')
-    ];
+export class TodoService extends APIService {
+  private resourceUrl = 'api/todo';
 
-  constructor() { }
-
-list(): Todo[] {
-        return this.todos;
+      create(value: string, value2: Number, bool: boolean): Observable<Todo> {
+        return this.post(this.resourceUrl, new Todo(value, value2, bool));
       }
-
-create(description,priority,completed) {
-   this.todos.push(new Todo(description,priority,completed));
- }  
+      list(): Observable<Todo[]> {
+        return this.get(this.resourceUrl);
+      }
 
 }
